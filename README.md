@@ -1,59 +1,154 @@
-# MovimentosManuaisFrontend
+# Movimentos Manuais Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.5.
+Frontend desenvolvido em Angular para o desafio técnico Java + Angular - BNP Paribas & Antlia.
 
-## Development server
+A aplicação permite consultar e incluir movimentos manuais consumindo a API backend `movimentos-manuais-api`.
 
-To start a local development server, run:
+## Tecnologias utilizadas
+
+- Angular
+- TypeScript
+- HTML
+- CSS
+- RxJS
+- Angular HttpClient
+- Angular Forms
+
+## Funcionalidades
+
+- Listagem automática dos movimentos manuais cadastrados.
+- Cadastro de novo movimento manual.
+- Combo de produtos carregado pela API.
+- Combo de COSIF carregado de acordo com o produto selecionado.
+- Campo de ano com seleção baseada no ano atual.
+- Máscara de valor no padrão brasileiro.
+- Grid com valores formatados em moeda brasileira.
+- Validação de campos obrigatórios.
+- Habilitação dos campos ao clicar em `Novo`.
+- Limpeza do formulário ao clicar em `Limpar`.
+- Atualização automática do grid após inclusão.
+
+## Pré-requisitos
+
+Antes de rodar o projeto, é necessário ter instalado:
+
+- Node.js
+- npm
+- Angular CLI
+
+Para verificar:
+
+```bash
+node -v
+npm -v
+ng version
+```
+
+## Como instalar as dependências
+
+Na raiz do projeto frontend, execute:
+
+```bash
+npm install
+```
+
+## Como rodar o projeto
+
+Execute:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação ficará disponível em:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Backend necessário
 
-```bash
-ng generate --help
+Para o frontend funcionar corretamente, a API backend precisa estar rodando em:
+
+```text
+http://localhost:8080
 ```
 
-## Building
+Endpoints consumidos pelo frontend:
 
-To build the project run:
+```http
+GET  /api/produtos
+GET  /api/produtos/{codProduto}/cosifs
+GET  /api/movimentos-manuais
+POST /api/movimentos-manuais
+```
+
+## Repositório do backend
+
+```text
+https://github.com/domegospel/movimentos-manuais-api
+```
+
+## Estrutura do projeto
+
+```text
+src/app
+ ├── models
+ │   ├── movimento-manual.model.ts
+ │   ├── produto-cosif.model.ts
+ │   └── produto.model.ts
+ ├── services
+ │   ├── movimento-manual.service.ts
+ │   ├── produto-cosif.service.ts
+ │   └── produto.service.ts
+ ├── app.config.ts
+ ├── app.css
+ ├── app.html
+ ├── app.routes.ts
+ └── app.ts
+```
+
+## Fluxo da tela
+
+1. Ao abrir a tela, os movimentos manuais são carregados automaticamente.
+2. O usuário clica em `Novo`.
+3. Os campos do formulário são habilitados.
+4. O usuário informa mês, ano, produto, COSIF, valor e descrição.
+5. Ao clicar em `Incluir`, o frontend envia os dados para a API.
+6. A API gera automaticamente o número do lançamento.
+7. O grid é atualizado com o novo movimento cadastrado.
+
+## Observações técnicas
+
+- O projeto utiliza Angular standalone.
+- A comunicação com a API é feita via `HttpClient`.
+- O formulário utiliza `FormsModule` com `ngModel`.
+- A máscara de valor foi implementada sem bibliotecas externas.
+- O grid exibe os valores no padrão brasileiro.
+- O backend precisa estar com CORS liberado para `http://localhost:4200`.
+
+## Comandos úteis
+
+Instalar dependências:
+
+```bash
+npm install
+```
+
+Rodar aplicação:
+
+```bash
+ng serve
+```
+
+Gerar build:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Acessar aplicação local:
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```text
+http://localhost:4200
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

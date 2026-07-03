@@ -23,6 +23,10 @@ export class App implements OnInit {
 
   protected readonly title = signal('movimentos-manuais-frontend');
 
+  anoAtual = new Date().getFullYear();
+  anos: number[] = this.gerarListaAnos();
+  valorFormatado = '';
+
   produtos: Produto[] = [];
   cosifs: ProdutoCosif[] = [];
   movimentos: MovimentoManual[] = [];
@@ -53,6 +57,7 @@ export class App implements OnInit {
     this.mensagemErro = '';
     this.mensagemSucesso = '';
     this.movimentoRequest = this.criarFormularioVazio();
+    this.valorFormatado = '';
     this.cosifs = [];
 
     this.changeDetectorRef.detectChanges();
@@ -60,6 +65,7 @@ export class App implements OnInit {
 
   limpar(): void {
     this.movimentoRequest = this.criarFormularioVazio();
+    this.valorFormatado = '';
     this.cosifs = [];
     this.mensagemErro = '';
     this.mensagemSucesso = '';
@@ -87,6 +93,7 @@ export class App implements OnInit {
           this.mensagemSucesso = 'Movimento manual incluído com sucesso.';
           this.formularioHabilitado = false;
           this.movimentoRequest = this.criarFormularioVazio();
+          this.valorFormatado = '';
           this.cosifs = [];
           this.carregando = false;
 
@@ -194,7 +201,7 @@ export class App implements OnInit {
     private criarFormularioVazio(): MovimentoManualRequest {
       return {
         mes: null,
-        ano: null,
+        ano: this.anoAtual,
         codProduto: '',
         codCosif: '',
         valor: null,
@@ -226,5 +233,50 @@ export class App implements OnInit {
         !!this.movimentoRequest.valor &&
         this.movimentoRequest.valor > 0 &&
         !!this.movimentoRequest.descricao?.trim();
+    }
+
+    formatarValor(event: Event): void {
+      const input = event.target as HTMLInputElement;
+
+      const somenteNumeros = input.value.replace(/\D/g, '');
+
+      if (!somenteNumeros) {
+        this.valorFormatado = '';
+        this.movimentoRequest.valor = null;
+        return;
+      }
+
+      const valorNumerico = Number(somenteNumeros) / 100;
+
+      this.movimentoRequest.valor = valorNumerico;
+
+      this.valorFormatado = valorNumerico.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      input.value = this.valorFormatado;
+
+      this.changeDetectorRef.detectChanges();
+    }
+
+    private gerarListaAnos(): number[] {
+      const anoAtual = new Date().getFullYear();
+      const anos: number[] = [];
+
+      for (let ano = anoAtual - 10; ano <= anoAtual + 10; ano++) {
+        anos.push(ano);
+      }
+
+      return anos;
+    }
+
+    formatarValorGrid(valor: number): string {
+      return valor.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 }
