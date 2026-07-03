@@ -20,19 +20,22 @@
 
       <div class="form-group">
         <label for="ano">Ano</label>
-        <select
+        <input
           id="ano"
+          type="number"
+          min="1900"
+          max="9999"
+          list="listaAnos"
           [(ngModel)]="movimentoRequest.ano"
           name="ano"
           [disabled]="!formularioHabilitado"
-        >
+        />
+        <datalist id="listaAnos">
           <option
             *ngFor="let ano of anos"
-            [ngValue]="ano"
-          >
-            {{ ano }}
-          </option>
-        </select>
+            [value]="ano"
+          ></option>
+        </datalist>
       </div>
 
       <div class="form-group">
