@@ -46,8 +46,8 @@
   flex-direction: column;
 }
 
-.form-group.full-width {
-  grid-column: 1 / -1;
+.descricao-group {
+  grid-column: 1 / 2;
 }
 
 label {
@@ -75,7 +75,7 @@ select {
 
 textarea {
   resize: vertical;
-  min-height: 70px;
+  min-height: 58px;
 }
 
 input:disabled,
@@ -109,15 +109,15 @@ textarea:disabled {
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 4px;
   margin-top: 8px;
 }
 
 button {
-  min-width: 76px;
+  min-width: 54px;
   border: none;
-  border-radius: 3px;
-  padding: 9px 16px;
+  border-radius: 2px;
+  padding: 7px 10px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
