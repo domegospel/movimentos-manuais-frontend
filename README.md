@@ -68,13 +68,27 @@ http://localhost:4200
 
 ## Backend necessário
 
-Para o frontend funcionar corretamente, a API backend precisa estar rodando em:
+Para o frontend funcionar corretamente, uma das APIs backend precisa estar rodando em:
 
 ```text
 http://localhost:8080
 ```
 
-Endpoints consumidos pelo frontend:
+Este frontend pode consumir qualquer uma das duas versões do backend.
+
+### Backend em camadas
+
+```text
+https://github.com/domegospel/movimentos-manuais-api
+```
+
+### Backend com arquitetura hexagonal
+
+```text
+https://github.com/domegospel/movimentos-manuais-api-hexagonal
+```
+
+Ambas as APIs expõem os mesmos endpoints REST:
 
 ```http
 GET  /api/produtos
@@ -83,11 +97,8 @@ GET  /api/movimentos-manuais
 POST /api/movimentos-manuais
 ```
 
-## Repositório do backend
+Por isso, o mesmo frontend Angular consegue consumir tanto a API em camadas quanto a API hexagonal, desde que uma delas esteja rodando localmente na porta `8080`.
 
-```text
-https://github.com/domegospel/movimentos-manuais-api
-```
 
 ## Estrutura do projeto
 
